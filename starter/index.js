@@ -35,4 +35,48 @@ const questions = [
     validate: (email) => /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email) ? true : 'Please enter a valid email address.',
   },
 ];
+function addMember(type) {
+  const questions = [
+    {
+      type: 'input',
+      name: 'name',
+      message: `What is the ${type}'s name?`,
+      validate: (input) => input ? true : `Name cannot be empty.`,
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: `What is the ${type}'s ID?`,
+      validate: (input) => input ? true : 'ID cannot be empty.',
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: `What is the ${type}'s email?`,
+      validate: (email) => /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email) ? true : 'Please enter a valid email address.',
+    },
+  ];
 
+  if (type === 'engineer') {
+    questions.push({
+      type: 'input',
+      name: 'github',
+      message: "What is the Engineer's GitHub username?",
+      validate: (input) => input ? true : 'GitHub username cannot be empty.',
+    });
+  } else if (type === 'intern') {
+    questions.push({
+      type: 'input',
+      name: 'school',
+      message: "What is the Intern's school name?",
+      validate: (input) => input ? true : 'School name cannot be empty.',
+    });
+  }
+  if (type === 'manager') {
+    questions.push({
+      type: 'input',
+      name: 'officeNumber',
+      message: "What is the office number?",
+      validate: (input) => input ? true : 'Office number cannot be empty.',
+    });
+  }
