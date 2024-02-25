@@ -80,3 +80,39 @@ function addMember(type) {
       validate: (input) => input ? true : 'Office number cannot be empty.',
     });
   }
+  inquirer.prompt(questions).then((response) => {
+    if (type === 'manager') {
+      EmployeeArray.push(new Manager(name = response.name, id = response.id, email = response.email, officeNumber = response.officeNumber));
+    } else if (type === 'engineer') {
+      EmployeeArray.push(new Engineer(name = response.name, id = response.id, email = response.email, github = response.github));
+    } else if (type === 'intern') {
+      EmployeeArray.push(new Intern(name = response.name, id = response.id, email = response.email, school = response.school));
+    }
+    option();
+  });
+}
+
+function option() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'option',
+      message: "Enter a team member: ",
+      choices: ['Add an engineer', 'Add an intern', 'Finish building the team'],
+    }
+  ]).then((response) => {
+    if (response.option === 'Add an engineer') {
+        addMember('engineer');
+    } else if (response.option === 'Add an intern'){
+        addMember('intern');
+    }  else { 
+      writeToFile(outputPath, render(EmployeeArray));
+    }
+  });
+}
+
+function writeToFile(fileName, data) {
+  fs.writeFile(file = fileName, data, (err) => err ? console.error(err) : console.log('HTML file created!'));
+}
+
+addMember('manager');
